@@ -1,0 +1,11 @@
+<input 
+    (keyup.enter)="createTask(task)" #task
+    type="text" class="form-control">
+
+<ul class="list-group">
+    <li 
+        *ngFor="let task of tasks"
+        class="list-group-item">
+        {{task.description}}
+    </li>
+</ul>
