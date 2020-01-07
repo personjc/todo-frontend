@@ -4,30 +4,29 @@ import { Http } from '@angular/http';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Task } from './task';
 import { Observable, of } from 'rxjs';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @Injectable()
 export class TaskService {
-
-  tasks: any = [];
   private url = 'http://localhost:8085/api/v1/task';
 
   constructor(private http: HttpClient) { }
 
   getAllTasks(): Observable<HttpResponse<Task[]>> {
-    return this.http.get<Task[]>(this.url, {observe: 'response'});
+    return this.http.get<Task[]>(this.url, {observe: 'response'})
    }
 
   // getTaskById(id: any) {
   //   return this.http.get<Task>(this.url + '/' + id).pipe
   // }
 
-  //  createTask(input: HTMLInputElement) {
-  //    let httpTask = {task: input.value};
-  //   this.http.post(this.url, JSON.stringify(httpTask))
-  //     .subscribe(response => {
-  //       console.log(response.json())
-  //     });
-  //  }
+   addTask(task: String) {
+    return this.http.post(this.url, {description: task});
+   }
+
+   deleteTask(taskId: String){
+    return this.http.delete(this.url + '/' + taskId);
+   }
 
   private handleError<T>(operation = 'operation', result?: T){
     return (error: any): Observable<T> => {

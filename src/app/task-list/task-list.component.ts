@@ -10,20 +10,40 @@ import { Task } from '../task';
 export class TaskListComponent {
 
   tasks: Task[] = [];
-  headers;
+  newTask;
 
   constructor(private taskService: TaskService){
+    this.getAllTasks();
+  }
+
+  private addTask(description){
+    console.log('Task entered ' + description);
+
+    this.taskService.addTask(description).toPromise()
+      .then(res => this.getAllTasks());
+
+    this.newTask = ' ';
+  }
+
+  private deleteTask(taskId){
+    this.taskService.deleteTask(taskId).toPromise()
+      .then(res => this.getAllTasks());
+  }
+
+  private getAllTasks(){
+    this.tasks = [];
+
     this.taskService.getAllTasks().
       subscribe(response => {
         console.log(response);
-        const keys = response.headers.keys();
-        this.headers = keys.map(key => 
-          `${key}: ${response.headers.get(key)}`);
-
+        
+        console.log(response.body);
         for(const data of response.body) {
           this.tasks.push(data);
         }
     });
+
+    console.log('Tasks Returned');
   }
 
 }

@@ -1,11 +1,11 @@
-<input 
-    (keyup.enter)="createTask(task)" #task
-    type="text" class="form-control">
+<input id="addTaskInput"
+    #newTask (keyup.enter)="addTask(newTask.value)" 
+    type="text" class="form-control" placeholder="enter description">
 
-<ul class="list-group">
-    <li 
-        *ngFor="let task of tasks"
-        class="list-group-item">
+<ul class="list-group" id="taskList">
+    <li *ngFor="let task of tasks" class="list-group-item">
+        <input type="checkbox" (click)="deleteTask(task.id)"/>
         {{task.description}}
     </li>
+    
 </ul>
