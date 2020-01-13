@@ -1,5 +1,5 @@
 <input id="addTaskInput"
-    #newTask (keyup.enter)="addTask(newTask.value)" 
+    (keyup.enter)="addTask()" [(ngModel)]="newTask"
     type="text" class="form-control" placeholder="enter description">
 
 <ul class="list-group" id="taskList">

@@ -10,19 +10,16 @@ import { Task } from '../task';
 export class TaskListComponent {
 
   tasks: Task[] = [];
-  newTask;
+  newTask: String;
 
   constructor(private taskService: TaskService){
     this.getAllTasks();
   }
 
-  private addTask(description){
-    console.log('Task entered ' + description);
-
-    this.taskService.addTask(description).toPromise()
+  private addTask(){
+    this.taskService.addTask(this.newTask).toPromise()
       .then(res => this.getAllTasks());
-
-    this.newTask = ' ';
+      this.newTask = ' ';
   }
 
   private deleteTask(taskId){
